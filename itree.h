@@ -13,6 +13,7 @@ typedef struct _ITNodo {
     double extra;
     struct _ITNodo *left;
     struct _ITNodo *right;
+    int altura;
 } ITNodo;
 /* estructura de un nodo del arbol de intervalos */
 typedef ITNodo *ITree;

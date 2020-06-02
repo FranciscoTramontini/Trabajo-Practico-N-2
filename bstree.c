@@ -21,6 +21,8 @@ void bstree_simple_derecha(ITree *nodo) {
 	aux = (*nodo)->left;
 	(*nodo)->left = aux->right;
 	aux->right = (*nodo);
+	(*nodo)->altura = bstree_altura((*nodo));
+	aux->altura = bstree_altura(aux);
 	(*nodo) = aux;
 }
 
@@ -29,6 +31,8 @@ void bstree_simple_izquierda(ITree *nodo) {
 	aux = (*nodo)->right;
 	(*nodo)->right = aux->left;
 	aux->left = (*nodo);
+	(*nodo)->altura = bstree_altura((*nodo));
+	aux->altura = bstree_altura(aux);
 	(*nodo) = aux;
 }
 
