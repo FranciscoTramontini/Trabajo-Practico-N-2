@@ -36,7 +36,7 @@ void itree_destruir(ITree nodo);
     * el intervalo pasado como argumento. Siempre respetando que sea un arbol de
     * intervalos AVL.
     */
-void itree_insertar(ITree nodo, Intervalo dato);
+void itree_insertar(ITree *nodo, Intervalo dato);
 
 /**
     * itree_eliminar : *ITree -> Intervalo -> void
@@ -45,7 +45,7 @@ void itree_insertar(ITree nodo, Intervalo dato);
     * pasado como argumento. Siempre respetando que sea un arbol de intervalos
     * AVL.
     */
-void itree_destruir(ITree nodo);
+void itree_eliminar(ITree *nodo, Intervalo dato);
 
 /**
     * itree_recorrer_dfs : ITree -> FuncionVisitante -> viod

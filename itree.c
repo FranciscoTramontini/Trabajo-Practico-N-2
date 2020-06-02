@@ -1,5 +1,6 @@
 #include "itree.h"
 #include "cola.h"
+#include "bstree.h"
 #include <stdlib.h>
 
 ITree itree_crear() {
