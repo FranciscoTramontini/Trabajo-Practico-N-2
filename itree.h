@@ -2,7 +2,7 @@
 #define __ITREE_H__
 
 typedef void (*FuncionVisitante) (double dato1, double dato2);
-/* Funcion puntero. */
+/* función puntero. */
 
 typedef struct _Intervalo {
     double a, b;
@@ -14,8 +14,9 @@ typedef struct _ITNodo {
     struct _ITNodo *left;
     struct _ITNodo *right;
 } ITNodo;
-
+/* estructura de un nodo del arbol de intervalos */
 typedef ITNodo *ITree;
+/* arbol de intervalos */
 
 /**
     * itree_crear : void -> Itree
@@ -26,6 +27,23 @@ ITree itree_crear();
 /**
     * itree_destruir : ITree -> void
     * Dado un arbol, libera la memoria pedida.
+    */
+void itree_destruir(ITree nodo);
+
+/**
+    * itree_insertar : *ITree -> Intervalo -> void
+    * Dado la direccion donde apunta el arbol pasado como argumento, insertamos
+    * el intervalo pasado como argumento. Siempre respetando que sea un arbol de
+    * intervalos AVL.
+    */
+void itree_insertar(ITree nodo, Intervalo dato);
+
+/**
+    * itree_eliminar : *ITree -> Intervalo -> void
+    * Dado la direccion donde apunta el arbol de intervalos pasado como
+    * argumento eliminamos, si es que se encuentra en el arbol, el intervalo
+    * pasado como argumento. Siempre respetando que sea un arbol de intervalos
+    * AVL.
     */
 void itree_destruir(ITree nodo);
 

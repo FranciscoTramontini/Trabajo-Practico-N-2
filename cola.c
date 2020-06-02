@@ -2,24 +2,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-Cola cola_crear(){
+Cola cola_crear() {
 	Cola nuevaCola = malloc(sizeof(struct _Cola));
   	nuevaCola->primero = NULL;
   	nuevaCola->ultimo = NULL;
   	return nuevaCola;
 }
 
-void cola_encolar(Cola cola, ITree dato){
+void cola_encolar(Cola cola, ITree dato) {
 	SNodo *nuevoNodo = malloc(sizeof(SNodo));
 	nuevoNodo->dato = dato;
 	nuevoNodo->sig = NULL;
-	
 	if(cola->primero == NULL){
 		cola->primero = nuevoNodo;
 		cola->ultimo = nuevoNodo;
 		return;
 	}
-	
+
 	SNodo *nodo = cola->primero;
 	for(;nodo->sig != NULL; nodo = nodo->sig);
 	/* nodo apunta al ultimo elemento de la cola. */
