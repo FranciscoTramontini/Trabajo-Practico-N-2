@@ -7,24 +7,26 @@ static void imprimir_intervalo (double dato1, double dato2) {
 }
 
 int main() {
-	
+
 	ITree raiz = itree_crear();
-	Intervalo interval;
-	char palabra[] = "";
-	
+	Intervalo dato;
+	char palabra[] = {};
+	char a[] = {};
+	char b[] = {};
+
 	while (strcmp(palabra, "salir") != 0) {
-		scanf("%s [%lf, %lf]", palabra, &interval.a, &interval.b);
 		if (strcmp(palabra, "i") == 0) {
-			itree_insertar(raiz, interval);
+			itree_insertar(&raiz, dato);
 		}
-		else if (strcmp(palabra, "e") == 0) {
-			itree_eliminar(raiz, interval);
+		if (strcmp(palabra, "bfs") == 0) {
+			itree_recorrer_bfs(raiz, imprimir_intervalo);
+			puts("");
 		}
-		else if (strcmp(palabra, "dfs") == 0) {
-			itree_recorrer_dfs(raiz, imprimir_intervalo);
-		}
+		scanf("%s[^\n]s\n", palabra);
+		sscanf(palabra, "%s [%s, %s]", palabra, a, b);
+		sscanf(a, "%lf", &dato.a);
+		sscanf(b, "%lf", &dato.b);
 	}
 	itree_destruir(raiz);
 	return 0;
 }
-
