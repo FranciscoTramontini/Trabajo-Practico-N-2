@@ -19,7 +19,15 @@ void itree_insertar(ITree *nodo, Intervalo dato) {
 	ITNodo **aux;
 	aux = nodo;
 	while ((*aux) != NULL) {
-		if ((*aux)->interval.a > dato.a)
+		if ((*aux)->extra < dato.b)
+			(*aux)->extra = dato.b; //actualiza el maximo a los nodos que visita
+		if ((*aux)->interval.a == dato.a){ //caso extremo izquierdo iguales
+			if ((*aux)->interval.b < dato.b)
+				aux = &((*aux)->left);
+			else
+				aux = &((*aux)->right);
+			}
+		else if ((*aux)->interval.a > dato.a)
 			aux = &((*aux)->left);
 		else
 			aux = &((*aux)->right);
@@ -62,6 +70,24 @@ void itree_eliminar(ITree *nodo, Intervalo dato) {
 		free(temporal);
 	  }
 	bstree_balancear(nodo, dato);
+}
+
+ITNodo* itree_intersectar(ITree *nodo, Intervalo dato) {
+	ITNodo **aux;
+	aux = nodo;
+	
+	if (nodo == NULL)
+		return NULL;
+	
+	while ((*aux) != NULL) {
+		if (dato.b >= (*aux)->interval.a && dato.a <= (*aux)->interval.b)
+			return *aux;
+		else if ((*aux)->left != NULL && dato.a <= (*aux)->left->extra)
+			aux = &((*aux)->left);
+		else
+			aux = &((*aux)->right);
+	}
+	return NULL;
 }
 
 void itree_recorrer_dfs(ITree nodo, FuncionVisitante visit) {
