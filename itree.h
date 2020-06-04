@@ -22,7 +22,7 @@ typedef ITNodo *ITree;
 /**
     * itree_crear : void -> Itree
     * Crea un arbol de intervalos vacio.
-  */
+    */
 ITree itree_crear();
 
 /**
@@ -50,20 +50,19 @@ void itree_eliminar(ITree *nodo, Intervalo dato);
 
 /**
     * itree_intersectar : *ITree -> Intervalo -> *ITNodo
-    * Busca un intervalo en el arbol que intersecte con el intervalo dado como 
-    * argumento, haciendo comparaciones entre los extremos del nodo con el intervalo 
-    * dado y haciendo uso del dato extra del maximo extremo derecho para determinar
-    * si es posible dicha interseccion. Retorna el nodo que lo intersecte
-  */
-
+    * Busca un intervalo en el arbol que intersecte con el intervalo dado como
+    * argumento, haciendo comparaciones entre los extremos del nodo con el
+    * intervalo dado y haciendo uso del dato extra del maximo extremo derecho
+    * para determinar si es posible dicha interseccion. Retorna el nodo que lo
+    * intersecte
+    */
 ITNodo* itree_intersectar(ITree *nodo, Intervalo dato);
 
 /**
     * itree_recorrer_dfs : ITree -> FuncionVisitante -> viod
     * Recorre el arbol pasado como argumento con el metodo primero por
     * profundidad, utilizando la funcion pasada.
-  */
-  
+    */
 void itree_recorrer_dfs(ITree nodo, FuncionVisitante visit);
 
 /**

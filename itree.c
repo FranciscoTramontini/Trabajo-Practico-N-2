@@ -1,6 +1,6 @@
 #include "itree.h"
 #include "cola.h"
-#include "bstree.h"
+#include "avl.h"
 #include <stdlib.h>
 
 ITree itree_crear() {
@@ -18,10 +18,13 @@ void itree_destruir(ITree nodo) {
 void itree_insertar(ITree *nodo, Intervalo dato) {
 	ITNodo **aux;
 	aux = nodo;
+
 	while ((*aux) != NULL) {
 		if ((*aux)->extra < dato.b)
-			(*aux)->extra = dato.b; //actualiza el maximo a los nodos que visita
-		if ((*aux)->interval.a == dato.a){ //caso extremo izquierdo iguales
+			(*aux)->extra = dato.b;
+            /* actualiza el maximo a los nodos que visita */
+		if ((*aux)->interval.a == dato.a){
+            /* caso extremo izquierdo iguales */
 			if ((*aux)->interval.b < dato.b)
 				aux = &((*aux)->left);
 			else
@@ -32,16 +35,18 @@ void itree_insertar(ITree *nodo, Intervalo dato) {
 		else
 			aux = &((*aux)->right);
 	}
+
 	(*aux) = (ITNodo*)malloc(sizeof(ITNodo));
 	(*aux)->interval = dato;
 	(*aux)->left = NULL;
 	(*aux)->right = NULL;
-	bstree_balancear(nodo, dato);
+	avl_balancear(nodo, dato);
 }
 
 void itree_eliminar(ITree *nodo, Intervalo dato) {
 	ITNodo **aux, **temp, *temporal;
 	aux = nodo;
+
 	while ((*aux)->interval.a != dato.a || (*aux)->interval.b != dato.b) {
 		if ((*aux)->interval.a > dato.a)
 			aux = &((*aux)->left);
@@ -55,30 +60,36 @@ void itree_eliminar(ITree *nodo, Intervalo dato) {
 		}
 		(*aux)->interval = (*temp)->interval;
 		aux = temp;
+    /* caso con dos hijos */
 	}
 	if ((*aux)->left == NULL && (*aux)->right == NULL) {
 		free(*aux);
 		(*aux) = NULL;
+    /* caso sin hijos */
 	}
 	else if ((*aux)->left == NULL) {
 		temporal = (*aux);
 		(*aux) = (*aux)->right;
 		free(temporal);
-	} else {
+    /* caso hijo derecho */
+	}
+    else {
 		temporal = (*aux);
 		(*aux) = (*aux)->left;
 		free(temporal);
-	  }
-	bstree_balancear(nodo, dato);
+    /* caso hijo izquierdo */
+	}
+
+	avl_balancear(nodo, dato);
 }
 
 ITNodo* itree_intersectar(ITree *nodo, Intervalo dato) {
 	ITNodo **aux;
 	aux = nodo;
-	
+
 	if (nodo == NULL)
 		return NULL;
-	
+
 	while ((*aux) != NULL) {
 		if (dato.b >= (*aux)->interval.a && dato.a <= (*aux)->interval.b)
 			return *aux;
@@ -87,6 +98,7 @@ ITNodo* itree_intersectar(ITree *nodo, Intervalo dato) {
 		else
 			aux = &((*aux)->right);
 	}
+
 	return NULL;
 }
 
