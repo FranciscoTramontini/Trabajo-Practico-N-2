@@ -3,7 +3,7 @@
 #include "avl.h"
 
 #define MAX(a,b) ((a) > (b) ? a : b)
-/* Determina si un valor es mayor que otro o viceversa */
+/* Determina si un elemento es mayor que otro o viceversa */
 
 int avl_altura(ITree nodo) {
 	if (nodo == NULL)
@@ -11,7 +11,14 @@ int avl_altura(ITree nodo) {
 	else
 		return nodo->altura;
 }
-
+/*
+void avl_calcular_altura(ITree nodo) {
+	if (nodo == NULL)
+		nodo->altura = 0;
+	else
+		nodo->altura = MAX(avl_altura(nodo->left), avl_altura(nodo->right)) + 1
+}
+*/
 int avl_calcular_altura(ITree nodo) {
 	if (nodo == NULL)
 		return 0;
@@ -48,6 +55,9 @@ void avl_rotacion_simple_derecha(ITree *nodo) {
 	(*nodo)->left = aux->right;
 	aux->right = (*nodo);
 	/* rotacion */
+
+	//avl_calcular_altura((*nodo));
+	//avl_calcular_altura(aux);
 	(*nodo)->altura = avl_calcular_altura((*nodo));
 	aux->altura = avl_calcular_altura(aux);
 	/* calculo de alturas para los nodos intercambiados */
@@ -67,6 +77,8 @@ void avl_rotacion_simple_izquierda(ITree *nodo) {
 	aux->left = (*nodo);
 	/* rotacion */
 
+	//avl_calcular_altura((*nodo));
+	//avl_calcular_altura(aux);
 	(*nodo)->altura = avl_calcular_altura((*nodo));
 	aux->altura = avl_calcular_altura(aux);
 	/* calculo de alturas para los nodos intercambiados */

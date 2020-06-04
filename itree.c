@@ -41,6 +41,7 @@ void itree_insertar(ITree *nodo, Intervalo dato) {
 	(*aux)->left = NULL;
 	(*aux)->right = NULL;
 	avl_balancear(nodo, dato);
+    (*nodo)->altura = avl_calcular_altura((*nodo));
 }
 
 void itree_eliminar(ITree *nodo, Intervalo dato) {
@@ -88,7 +89,8 @@ ITNodo* itree_intersectar(ITree *nodo, Intervalo dato) {
 	aux = nodo;
 
 	if (nodo == NULL)
-		return NULL;
+		return NULL; // Capaz esto lo podemos obviar, ya que si nodo es null no
+                        // entra en el while, hay que verlo.
 
 	while ((*aux) != NULL) {
 		if (dato.b >= (*aux)->interval.a && dato.a <= (*aux)->interval.b)
@@ -112,13 +114,15 @@ void itree_recorrer_dfs(ITree nodo, FuncionVisitante visit) {
 
 void itree_recorrer_bfs(ITree nodo, FuncionVisitante visit){
     Cola cola = cola_crear();
-    ITree temp = nodo;
-    while (temp != NULL){
-        visit(temp->interval.a, temp->interval.b);
-        if (temp->left != NULL)
-            cola_encolar(cola, temp->left);
-        if(temp->right != NULL)
-            cola_encolar(cola, temp->right);
-        temp = cola_desencolar(cola);
+    ITree aux = nodo;
+
+    while (aux != NULL) {
+        visit(aux->interval.a, aux->interval.b);
+
+        if (aux->left != NULL)
+            cola_encolar(cola, aux->left);
+        if (aux->right != NULL)
+            cola_encolar(cola, aux->right);
+        aux = cola_desencolar(cola);
     }
 }
