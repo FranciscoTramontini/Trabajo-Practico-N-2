@@ -34,7 +34,7 @@ int main() {
             palabra[len-1] = '\0';
         }
         printf ("palabra: %s\n" ,palabra); //test si llego hasta aca
-        sscanf(palabra, "%s %s" ,com ,interv); //separa com e intervalo
+        sscanf(palabra, "%s %[^\n]s" ,com ,interv); //separa com e intervalo
         printf("com: %s interv: %s\n" ,com ,interv); //test si llego hasta aca
 		sscanf(interv,"[%lf,%lf]" ,&dato.a ,&dato.b); //separa doubles del intervalo
 		printf("a: %f b: %f \n",a,b); //test si llego hasta aca
