@@ -28,7 +28,7 @@ void cola_encolar(Cola cola, ITree dato) {
 }
 
 ITree cola_desencolar(Cola cola){
-	if (cola->primero == NULL)  return NULL;
+	if (cola->primero == NULL) return NULL;
 	SNodo* aux = cola->primero;
 	cola->primero = aux->sig;
 	return aux->dato;

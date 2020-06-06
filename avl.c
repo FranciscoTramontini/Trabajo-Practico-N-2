@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "avl.h"
 
+// Ver si se puede hacer esto.
 #define MAX(a,b) ((a) > (b) ? a : b)
 /* Determina si un elemento es mayor que otro o viceversa */
 
@@ -11,6 +12,7 @@ int avl_altura(ITree nodo) {
 	else
 		return nodo->altura;
 }
+// Funcion calcular altura que no devuelve nada, hace todo interno.
 /*
 void avl_calcular_altura(ITree nodo) {
 	if (nodo == NULL)
@@ -25,7 +27,20 @@ int avl_calcular_altura(ITree nodo) {
 	else
 		return MAX(avl_altura(nodo->left), avl_altura(nodo->right)) + 1;
 }
-
+// Igual que calcular altura, podemos hacerlo que haga todo interno en la funcion.
+// void avl_calcular_max(ITree nodo) {
+// 	if (nodo->left == NULL) {
+// 		if (nodo->right != NULL)
+// 			nodo->extra = MAX(MAX(nodo->right->extra,nodo->extra));
+// 		/* caso extremos izquierdos iguales, sin hijo izquierdo
+// 		 * con hijo derecho */
+// 	}
+// 	else if (nodo->left != NULL && nodo->right == NULL)
+// 		nodo->extra = MAX(nodo->left->extra,nodo->extra);
+// 	/* caso solo hijo izquierdo */
+// 	else
+// 		nodo->extra = MAX(nodo->extra,MAX(nodo->left->extra,nodo->right->extra));
+// }
 double avl_calcular_max(ITree nodo) {
 	if (nodo->left == NULL){
 		if (nodo->right != NULL)
@@ -62,6 +77,8 @@ void avl_rotacion_simple_derecha(ITree *nodo) {
 	aux->altura = avl_calcular_altura(aux);
 	/* calculo de alturas para los nodos intercambiados */
 
+	//avl_calcular_max((*nodo));
+	//avl_calcular_max(aux);
 	(*nodo)->extra = avl_calcular_max((*nodo));
 	aux->extra = avl_calcular_max(aux);
 	/* calculo del maximo valor del intervalo en los nodos cambiados */
@@ -83,6 +100,8 @@ void avl_rotacion_simple_izquierda(ITree *nodo) {
 	aux->altura = avl_calcular_altura(aux);
 	/* calculo de alturas para los nodos intercambiados */
 
+	//avl_calcular_max((*nodo));
+	//avl_calcular_max(aux);
 	(*nodo)->extra = avl_calcular_max((*nodo));
 	aux->extra = avl_calcular_max(aux);
 	/* calculo del maximo valor del intervalo en los nodos cambiados */

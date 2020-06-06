@@ -22,12 +22,27 @@ int main() {
 			imprimir_intervalo(dato.a,dato.b);
 			printf("\n");
 		}
-		if (strcmp(com, "bfs") == 0) {
+		else if (strcmp(com, "e")) {
+			itree_eliminar(&raiz, dato);
+		}
+		else if (strcmp(com, "?")) {
+			Intervalo aux = itree_intersectar(&raiz, dato);
+			if (aux == NULL)
+				puts("No\n");
+			else
+				printf("Si, [%lf,%lf]", aux.a, aux.b);
+		}
+		else if (strcmp(com, "dfs")) {
+			itree_recorrer_dfs(raiz, imprimir_intervalo);
+			puts("");
+		}
+		else if (strcmp(com, "bfs") == 0) {
 			itree_recorrer_bfs(raiz, imprimir_intervalo);
 			puts("");
 		}
 		//scanf("%s[^\n]s\n", palabra);
 
+		//lei que gets no es muy recomendable utilizarlo.
         fgets(palabra, sizeof(palabra), stdin);  //leer string entero
         size_t len = strlen(palabra);
         if (len && (palabra[len-1] == '\n')) { //reemplaza \n con \0

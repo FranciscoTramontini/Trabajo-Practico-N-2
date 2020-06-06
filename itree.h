@@ -61,14 +61,14 @@ ITNodo* itree_intersectar(ITree *nodo, Intervalo dato);
 /**
     * itree_recorrer_dfs : ITree -> FuncionVisitante -> viod
     * Recorre el arbol pasado como argumento con el metodo primero por
-    * profundidad, utilizando la funcion pasada.
+    * profundidad con recorrido inorden, utilizando la funcion pasada.
     */
 void itree_recorrer_dfs(ITree nodo, FuncionVisitante visit);
 
 /**
     * itree_recorrer_bfs : ITree -> FuncionVisitante -> void
     * Recorre el arbol pasado como argumento con el metodo primero a lo ancho
-    * utilizando la funcion pasada.
+    * utilizando colas y la funcion pasada.
     */
 void itree_recorrer_bfs(ITree nodo, FuncionVisitante visit);
 
