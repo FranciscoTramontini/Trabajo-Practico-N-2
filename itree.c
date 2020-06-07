@@ -15,6 +15,25 @@ void itree_destruir(ITree nodo) {
     }
 }
 
+// void itree_insertar(ITree *nodo, Intervalo dato) {
+// 	ITNodo **aux = nodo;
+// 	if ((*aux) == NULL) {
+// 		(*aux) = (ITNodo *)malloc(sizeof(ITNodo));
+// 		(*aux)->interval = dato;
+// 		(*aux)->altura = 1;
+// 		(*aux)->left = NULL;
+// 		(*aux)->right = NULL;
+// 		//avl_balancear(aux);
+// 		return;
+// 	} else {
+// 		if (dato.a < (*aux)->interval.a)
+// 			itree_insertar(&((*aux)->left), dato);
+// 		else
+// 			itree_insertar(&((*aux)->right), dato);
+// 		avl_balancear(aux);
+// 		avl_actualizar_altura((*aux));
+// 	  }
+// }
 void itree_insertar(ITree *nodo, Intervalo dato) {
 	ITNodo **aux = nodo;
 
