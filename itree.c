@@ -15,56 +15,60 @@ void itree_destruir(ITree nodo) {
     }
 }
 
-// void itree_insertar(ITree *nodo, Intervalo dato) {
-// 	ITNodo **aux = nodo;
-// 	if ((*aux) == NULL) {
-// 		(*aux) = (ITNodo *)malloc(sizeof(ITNodo));
-// 		(*aux)->interval = dato;
-// 		(*aux)->altura = 1;
-// 		(*aux)->left = NULL;
-// 		(*aux)->right = NULL;
-// 		//avl_balancear(aux);
-// 		return;
-// 	} else {
-// 		if (dato.a < (*aux)->interval.a)
-// 			itree_insertar(&((*aux)->left), dato);
-// 		else
-// 			itree_insertar(&((*aux)->right), dato);
-// 		avl_balancear(aux);
-// 		avl_actualizar_altura((*aux));
-// 	  }
-// }
 void itree_insertar(ITree *nodo, Intervalo dato) {
 	ITNodo **aux = nodo;
-
-	while ((*aux) != NULL) {
-		if ((*aux)->extra < dato.b)
-			(*aux)->extra = dato.b;
-            /* actualiza el maximo a los nodos que visita */
-		if ((*aux)->interval.a == dato.a){
-            /* caso extremo izquierdo iguales */
-			if ((*aux)->interval.b < dato.b)
-				aux = &((*aux)->left);
-            //Me parece que faltaria ver que no sean iguales, asi no lo agrego;
-            //Me parece que con ese codigo comentado de abajo estaria.
-            // else if ((*aux)->interval.b == dato.b)
-            //     return;
-			else
-				aux = &((*aux)->right);
-			}
-		else if ((*aux)->interval.a > dato.a)
-			aux = &((*aux)->left);
+	if ((*aux) == NULL) {
+		(*aux) = (ITNodo *)malloc(sizeof(ITNodo));
+		(*aux)->interval = dato;
+		(*aux)->altura = 1;
+		(*aux)->left = NULL;
+		(*aux)->right = NULL;
+        avl_actualizar_max((*nodo));
+		return;
+	} else {
+		if (dato.a < (*aux)->interval.a ||
+            (dato.a == (*aux)->interval.a && dato.b < (*aux)->interval.b))
+			itree_insertar(&((*aux)->left), dato);
+        else if (dato.a == (*aux)->interval.a && dato.b == (*aux)->interval.b)
+            return;
 		else
-			aux = &((*aux)->right);
-	}
-	(*aux) = (ITNodo*)malloc(sizeof(ITNodo));
-	(*aux)->interval = dato;
-	(*aux)->left = NULL;
-	(*aux)->right = NULL;
-	avl_balancear(nodo, dato);
-    //avl_calcular_altura((*nodo));
-    (*nodo)->altura = avl_calcular_altura((*nodo));
+			itree_insertar(&((*aux)->right), dato);
+		avl_balancear(aux);
+		avl_actualizar_altura((*aux));
+        avl_actualizar_max((*aux));
+	  }
 }
+// void itree_insertar(ITree *nodo, Intervalo dato) {
+// 	ITNodo **aux = nodo;
+//
+// 	while ((*aux) != NULL) {
+// 		if ((*aux)->extra < dato.b)
+// 			(*aux)->extra = dato.b;
+//             /* actualiza el maximo a los nodos que visita */
+// 		if ((*aux)->interval.a == dato.a){
+//             /* caso extremo izquierdo iguales */
+// 			if ((*aux)->interval.b < dato.b)
+// 				aux = &((*aux)->left);
+//             //Me parece que faltaria ver que no sean iguales, asi no lo agrego;
+//             //Me parece que con ese codigo comentado de abajo estaria.
+//             // else if ((*aux)->interval.b == dato.b)
+//             //     return;
+// 			else
+// 				aux = &((*aux)->right);
+// 			}
+// 		else if ((*aux)->interval.a > dato.a)
+// 			aux = &((*aux)->left);
+// 		else
+// 			aux = &((*aux)->right);
+// 	}
+// 	(*aux) = (ITNodo*)malloc(sizeof(ITNodo));
+// 	(*aux)->interval = dato;
+// 	(*aux)->left = NULL;
+// 	(*aux)->right = NULL;
+// 	avl_balancear(nodo, dato);
+//     //avl_calcular_altura((*nodo));
+//     (*nodo)->altura = avl_calcular_altura((*nodo));
+// }
 
 //anda mal. Rehacer.
 // void itree_eliminar(ITree *nodo, Intervalo dato) {
@@ -129,7 +133,7 @@ ITNodo* itree_intersectar(ITree *nodo, Intervalo dato) {
 void itree_recorrer_dfs(ITree nodo, FuncionVisitante visit) {
     if (nodo != NULL) {
         itree_recorrer_dfs(nodo->left, visit);
-        visit(nodo->interval.a, nodo->interval.b, nodo->altura);
+        visit(nodo->interval.a, nodo->interval.b, nodo->extra);
         itree_recorrer_dfs(nodo->right, visit);
     /* recorrido inorden */
     }
@@ -140,7 +144,7 @@ void itree_recorrer_bfs(ITree nodo, FuncionVisitante visit){
     ITree aux = nodo;
     //Podemos sacarlo y trabajar con nodo.
     while (aux != NULL) {
-        visit(aux->interval.a, aux->interval.b, aux->altura);
+        visit(aux->interval.a, aux->interval.b, aux->extra);
         if (aux->left != NULL)
             cola_encolar(cola, aux->left);
         if (aux->right != NULL)

@@ -2,8 +2,8 @@
 #include <string.h>
 #include "itree.h"
 
-static void imprimir_intervalo (double dato1, double dato2, int dato3) {
-	printf("[%f, %f] |%d| ", dato1, dato2, dato3);
+static void imprimir_intervalo (double dato1, double dato2, double dato3) {
+	printf("[%f, %f] |%f| ", dato1, dato2, dato3);
 }
 
 int main() {
@@ -32,7 +32,7 @@ int main() {
 			//~ else
 				//~ printf("Si, [%lf,%lf]", aux.a, aux.b);
 		//~ }
-		else if (strcmp(com, "dfs")) {
+		else if (strcmp(com, "dfs") == 0) {
 			itree_recorrer_dfs(raiz, imprimir_intervalo);
 			puts("");
 		}
