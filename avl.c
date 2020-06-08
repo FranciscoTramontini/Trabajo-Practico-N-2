@@ -27,20 +27,22 @@ void avl_actualizar_altura(ITree nodo) {
 
 // Igual que calcular altura, podemos hacerlo que haga todo interno en la funcion.
 void avl_actualizar_max(ITree nodo) {
-	if (nodo->left == NULL) {
-		if (nodo->right != NULL)
-			nodo->extra = MAX(nodo->right->extra,nodo->extra);
-		/* caso extremos izquierdos iguales, sin hijo izquierdo
-		 * con hijo derecho */
+	if (nodo != NULL){
+		if (nodo->left == NULL) {
+			if (nodo->right != NULL)
+				nodo->extra = MAX(nodo->right->extra,nodo->interval.b);
+			/* caso extremos izquierdos iguales, sin hijo izquierdo
+			 * con hijo derecho */
+			else
+				nodo->extra = nodo->interval.b;
+			/* caso sin hijos */
+		}
+		else if (nodo->left != NULL && nodo->right == NULL)
+			nodo->extra = MAX(nodo->left->extra,nodo->interval.b);
+		/* caso solo hijo izquierdo */
 		else
-			nodo->extra = nodo->interval.b;
-		/* caso sin hijos */
-	}
-	else if (nodo->left != NULL && nodo->right == NULL)
-		nodo->extra = MAX(nodo->left->extra,nodo->extra);
-	/* caso solo hijo izquierdo */
-	else
-		nodo->extra = MAX(nodo->extra,MAX(nodo->left->extra,nodo->right->extra));
+			nodo->extra = MAX(nodo->interval.b,MAX(nodo->left->extra,nodo->right->extra));
+		}
 }
 // double avl_calcular_max(ITree nodo) {
 // 	if (nodo->left == NULL){

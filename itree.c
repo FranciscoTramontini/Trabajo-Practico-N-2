@@ -107,7 +107,7 @@ void itree_eliminar(ITree *nodo, Intervalo dato) {
 		}
 	}
 	avl_actualizar_altura((*nodo));
-	avl_calcular_max((*nodo));
+	avl_actualizar_max((*nodo));
 	avl_balancear(nodo);
 }
 // void itree_eliminar(ITree *nodo, Intervalo dato) {
