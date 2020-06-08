@@ -115,45 +115,44 @@ void itree_eliminar(ITree *nodo, Intervalo dato) {
   avl_actualizar_max((*aux));
 }
 
-//anda mal. Rehacer.
 // void itree_eliminar(ITree *nodo, Intervalo dato) {
-// 	ITNodo **aux, **temp, *temporal;
-// 	aux = nodo;
-//
-// 	while ((*aux)->interval.a != dato.a || (*aux)->interval.b != dato.b) {
-// 		if ((*aux)->interval.a > dato.a)
-// 			aux = &((*aux)->left);
-// 		else
-// 			aux = &((*aux)->right);
-// 	}
-// 	if ((*aux)->left != NULL && (*aux)->right != NULL) {
-// 		temp = &((*aux)->right);
-// 		while ((*temp)->left) {
-// 			temp = &((*temp)->left);
+// 	ITNodo *temp;
+// 
+// 	if (dato.a < (*nodo)->interval.a || (dato.a == (*nodo)->interval.a && dato.b < (*nodo)->interval.b))
+// 		itree_eliminar(&((*nodo)->left), dato);
+// 	else if (dato.a > (*nodo)->interval.a || (dato.a == (*nodo)->interval.a && dato.b > (*nodo)->interval.b))
+// 		itree_eliminar(&((*nodo)->right), dato);
+// 	else {
+// 		if ((*nodo)->left == NULL && (*nodo)->right == NULL) {
+// 			free((*nodo));
+// 			(*nodo) = NULL;
+// 			return;
+// 		/* sin hijos */
 // 		}
-// 		(*aux)->interval = (*temp)->interval;
-// 		aux = temp;
-//     /* caso con dos hijos */
+// 		else if ((*nodo)->left == NULL) {
+// 			temp = (*nodo);
+// 			(*nodo) = (*nodo)->right;
+// 			free(temp);
+// 		/* hijo derecho */
+// 		}
+// 		else if ((*nodo)->right == NULL) {
+// 			temp = (*nodo);
+// 			(*nodo) = (*nodo)->left;
+// 			free(temp);
+// 		/* hijo izquierdo */
+// 		}
+// 		else {
+// 			while ((*nodo)->right->left != NULL)
+// 				(*nodo)->right = (*nodo)->right->left;
+// 			temp = (*nodo)->right;
+// 			(*nodo)->interval = temp->interval;
+// 			itree_eliminar(&(*nodo)->right, temp->interval);
+// 		}
 // 	}
-// 	if ((*aux)->left == NULL && (*aux)->right == NULL) {
-// 		free(*aux);
-// 		(*aux) = NULL;
-//     /* caso sin hijos */
-// 	}
-// 	else if ((*aux)->left == NULL) {
-// 		temporal = (*aux);
-// 		(*aux) = (*aux)->right;
-// 		free(temporal);
-//     /* caso hijo derecho */
-// 	}
-//     else {
-// 		temporal = (*aux);
-// 		(*aux) = (*aux)->left;
-// 		free(temporal);
-//     /* caso hijo izquierdo */
-// 	}
+// 	avl_balancear(nodo);
+// 	avl_actualizar_altura((*nodo));
+// 	avl_calcular_max((*nodo));
 //
-// 	avl_balancear(nodo, dato);
 // }
 
 ITNodo* itree_intersectar(ITree *nodo, Intervalo dato) {
