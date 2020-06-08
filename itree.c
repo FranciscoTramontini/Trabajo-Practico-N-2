@@ -70,96 +70,95 @@ void itree_insertar(ITree *nodo, Intervalo dato) {
 //     (*nodo)->altura = avl_calcular_altura((*nodo));
 // }
 
-void itree_eliminar(ITree *nodo, Intervalo dato) {
-  ITNodo **aux, **temp;
-  aux = nodo;
-
-  if ((*aux) == NULL) //chequear arbol vacio
-    return;
-
-  if (dato.a < (*aux)->interval.a)
-    itree_eliminar((*aux)->left, dato);
-  else if (dato.a > (*aux)->interval.b)
-    itree_eliminar((*aux)->right,dato);
-  else{ //nodo a eliminar
-    if ((*aux)->left == NULL){
-      if ((*aux)->right == NULL)     //caso no tiene hijos
-        itree_destruir(*aux);
-      else {                        //caso tiene solo hijo derecho
-        (*temp) = (*aux)->right;
-        (*aux) = (*aux)->right;
-        itree_destruir(*temp);
-      }
-    }
-    else if ((*aux)->left != NULL) { //caso tiene solo hijo izquierdo
-      (*temp) = (*aux)->left;
-      (*aux) = (*aux)->left;
-      itree_destruir(*temp);
-    }
-    else{                            //caso tiene dos hijos
-      (*temp) = (*aux)->right;
-
-      while ((*temp)->left != NULL) //buscar minimo del hijo derecho
-        (*temp) = (*temp)->left;
-
-      if ((*temp)->right != NULL){ //caso minimo tiene hijo derecho
-        (*aux)->interval = (*temp)->interval;
-        (*temp)->interval = (*temp)->right->interval;
-        itree_destruir((*temp)->right);
-      }
-      else { //caso minimo no tiene hijos
-        (*aux)->interval = (*temp)->interval;
-        itree_destruir(*temp);
-      }
-    }
-  }
-
-
-
-  avl_balancear(aux);
-  avl_actualizar_altura((*aux));
-  avl_actualizar_max((*aux));
+ITNodo *temp;
+	if ((*nodo) == NULL) return;
+	if (dato.a < (*nodo)->interval.a || (dato.a == (*nodo)->interval.a && dato.b < (*nodo)->interval.b))
+		itree_eliminar(&((*nodo)->left), dato);
+	else if (dato.a > (*nodo)->interval.a || (dato.a == (*nodo)->interval.a && dato.b > (*nodo)->interval.b))
+		itree_eliminar(&((*nodo)->right), dato);
+	else {
+		if ((*nodo)->left != NULL && (*nodo)->right != NULL) {
+			ITNodo **temp = &((*nodo)->right);
+			while ((*temp)->left) {
+				temp = &((*temp)->left);
+			}
+			(*nodo)->interval = (*temp)->interval;
+			nodo = temp;
+		/* sin hijos */
+		}
+		if ((*nodo)->left == NULL && (*nodo)->right == NULL) {
+			free((*nodo));
+			(*nodo) = NULL;
+			return;
+		}
+		else if ((*nodo)->left == NULL) {
+			temp = (*nodo);
+			(*nodo) = (*nodo)->right;
+			free(temp);
+		/* hijo derecho */
+		}
+		else {
+			temp = (*nodo);
+			(*nodo) = (*nodo)->left;
+			free(temp);
+		/* hijo izquierdo */
+		}
+	}
+	avl_balancear(nodo);
+	avl_actualizar_altura((*nodo));
+	avl_calcular_max((*nodo));
 }
-
 // void itree_eliminar(ITree *nodo, Intervalo dato) {
-// 	ITNodo *temp;
+//   ITNodo **aux, **temp;
+//   aux = nodo;
 //
-// 	if (dato.a < (*nodo)->interval.a || (dato.a == (*nodo)->interval.a && dato.b < (*nodo)->interval.b))
-// 		itree_eliminar(&((*nodo)->left), dato);
-// 	else if (dato.a > (*nodo)->interval.a || (dato.a == (*nodo)->interval.a && dato.b > (*nodo)->interval.b))
-// 		itree_eliminar(&((*nodo)->right), dato);
-// 	else {
-// 		if ((*nodo)->left == NULL && (*nodo)->right == NULL) {
-// 			free((*nodo));
-// 			(*nodo) = NULL;
-// 			return;
-// 		/* sin hijos */
-// 		}
-// 		else if ((*nodo)->left == NULL) {
-// 			temp = (*nodo);
-// 			(*nodo) = (*nodo)->right;
-// 			free(temp);
-// 		/* hijo derecho */
-// 		}
-// 		else if ((*nodo)->right == NULL) {
-// 			temp = (*nodo);
-// 			(*nodo) = (*nodo)->left;
-// 			free(temp);
-// 		/* hijo izquierdo */
-// 		}
-// 		else {
-// 			while ((*nodo)->right->left != NULL)
-// 				(*nodo)->right = (*nodo)->right->left;
-// 			temp = (*nodo)->right;
-// 			(*nodo)->interval = temp->interval;
-// 			itree_eliminar(&(*nodo)->right, temp->interval);
-// 		}
-// 	}
-// 	avl_balancear(nodo);
-// 	avl_actualizar_altura((*nodo));
-// 	avl_calcular_max((*nodo));
+//   if ((*aux) == NULL) //chequear arbol vacio
+//     return;
 //
+//   if (dato.a < (*aux)->interval.a)
+//     itree_eliminar((*aux)->left, dato);
+//   else if (dato.a > (*aux)->interval.b)
+//     itree_eliminar((*aux)->right,dato);
+//   else{ //nodo a eliminar
+//     if ((*aux)->left == NULL){
+//       if ((*aux)->right == NULL)     //caso no tiene hijos
+//         itree_destruir(*aux);
+//       else {                        //caso tiene solo hijo derecho
+//         (*temp) = (*aux)->right;
+//         (*aux) = (*aux)->right;
+//         itree_destruir(*temp);
+//       }
+//     }
+//     else if ((*aux)->left != NULL) { //caso tiene solo hijo izquierdo
+//       (*temp) = (*aux)->left;
+//       (*aux) = (*aux)->left;
+//       itree_destruir(*temp);
+//     }
+//     else{                            //caso tiene dos hijos
+//       (*temp) = (*aux)->right;
+//
+//       while ((*temp)->left != NULL) //buscar minimo del hijo derecho
+//         (*temp) = (*temp)->left;
+//
+//       if ((*temp)->right != NULL){ //caso minimo tiene hijo derecho
+//         (*aux)->interval = (*temp)->interval;
+//         (*temp)->interval = (*temp)->right->interval;
+//         itree_destruir((*temp)->right);
+//       }
+//       else { //caso minimo no tiene hijos
+//         (*aux)->interval = (*temp)->interval;
+//         itree_destruir(*temp);
+//       }
+//     }
+//   }
+//
+//
+//
+//   avl_balancear(aux);
+//   avl_actualizar_altura((*aux));
+//   avl_actualizar_max((*aux));
 // }
+
 
 ITNodo* itree_intersectar(ITree *nodo, Intervalo dato) {
 	ITNodo **aux;
