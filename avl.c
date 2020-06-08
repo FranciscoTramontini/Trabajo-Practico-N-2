@@ -171,13 +171,13 @@ void avl_balancear(ITree *nodo) {
 	if ((*nodo) != NULL) {
 		switch (avl_balance_factor((*nodo))) {
 			case 2:
-			if (avl_altura((*nodo)->right->right) > avl_altura((*nodo)->right->left))
+			if (avl_altura((*nodo)->right->right) >= avl_altura((*nodo)->right->left))
 				avl_rotacion_simple_derecha(nodo);
 			else
 				avl_rotacion_doble_derecha(nodo);
 			break;
 			case -2:
-			if (avl_altura((*nodo)->left->left) > avl_altura((*nodo)->left->right))
+			if (avl_altura((*nodo)->left->left) >= avl_altura((*nodo)->left->right))
 				avl_rotacion_simple_izquierda(nodo);
 			else
 				avl_rotacion_doble_izquierda(nodo);
