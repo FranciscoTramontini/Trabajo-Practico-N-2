@@ -70,6 +70,7 @@ void itree_insertar(ITree *nodo, Intervalo dato) {
 //     (*nodo)->altura = avl_calcular_altura((*nodo));
 // }
 
+void itree_eliminar(ITree *nodo, Intervalo dato) {
 ITNodo *temp;
 	if ((*nodo) == NULL) return;
 	if (dato.a < (*nodo)->interval.a || (dato.a == (*nodo)->interval.a && dato.b < (*nodo)->interval.b))
@@ -106,7 +107,7 @@ ITNodo *temp;
 	}
 	avl_balancear(nodo);
 	avl_actualizar_altura((*nodo));
-	avl_calcular_max((*nodo));
+	avl_actualizar_max((*nodo));
 }
 // void itree_eliminar(ITree *nodo, Intervalo dato) {
 //   ITNodo **aux, **temp;
