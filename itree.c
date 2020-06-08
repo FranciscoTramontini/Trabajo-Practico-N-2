@@ -68,46 +68,47 @@ void itree_insertar(ITree *nodo, Intervalo dato) {
 // 	avl_balancear(nodo, dato);
 //     //avl_calcular_altura((*nodo));
 //     (*nodo)->altura = avl_calcular_altura((*nodo));
-// }
+//
 
 void itree_eliminar(ITree *nodo, Intervalo dato) {
-ITNodo *temp;
-	if ((*nodo) == NULL) return;
-	if (dato.a < (*nodo)->interval.a || (dato.a == (*nodo)->interval.a && dato.b < (*nodo)->interval.b))
-		itree_eliminar(&((*nodo)->left), dato);
-	else if (dato.a > (*nodo)->interval.a || (dato.a == (*nodo)->interval.a && dato.b > (*nodo)->interval.b))
-		itree_eliminar(&((*nodo)->right), dato);
+	ITNodo *temp;
+	ITNodo **aux = nodo;
+	if ((*aux) == NULL) return;
+	if (dato.a < (*aux)->interval.a || (dato.a == (*aux)->interval.a && dato.b < (*aux)->interval.b))
+		itree_eliminar(&((*aux)->left), dato);
+	else if (dato.a > (*aux)->interval.a || (dato.a == (*aux)->interval.a && dato.b > (*aux)->interval.b))
+		itree_eliminar(&((*aux)->right), dato);
 	else {
-		if ((*nodo)->left != NULL && (*nodo)->right != NULL) {
-			ITNodo **temp = &((*nodo)->right);
+		if ((*aux)->left != NULL && (*aux)->right != NULL) {
+			ITNodo **temp = &((*aux)->right);
 			while ((*temp)->left) {
 				temp = &((*temp)->left);
 			}
-			(*nodo)->interval = (*temp)->interval;
-			nodo = temp;
+			(*aux)->interval = (*temp)->interval;
+			aux = temp;
 		/* sin hijos */
 		}
-		if ((*nodo)->left == NULL && (*nodo)->right == NULL) {
-			free((*nodo));
-			(*nodo) = NULL;
-			return;
+		if ((*aux)->left == NULL && (*aux)->right == NULL) {
+			free((*aux));
+			(*aux) = NULL;
+			//return;
 		}
-		else if ((*nodo)->left == NULL) {
-			temp = (*nodo);
-			(*nodo) = (*nodo)->right;
+		else if ((*aux)->left == NULL) {
+			temp = (*aux);
+			(*aux) = (*aux)->right;
 			free(temp);
 		/* hijo derecho */
 		}
 		else {
-			temp = (*nodo);
-			(*nodo) = (*nodo)->left;
+			temp = (*aux);
+			(*aux) = (*aux)->left;
 			free(temp);
 		/* hijo izquierdo */
 		}
 	}
-	avl_balancear(nodo);
 	avl_actualizar_altura((*nodo));
-	avl_actualizar_max((*nodo));
+	avl_calcular_max((*nodo));
+	avl_balancear(nodo);
 }
 // void itree_eliminar(ITree *nodo, Intervalo dato) {
 //   ITNodo **aux, **temp;
