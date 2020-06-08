@@ -3,7 +3,7 @@
 #include "itree.h"
 
 static void imprimir_intervalo (double dato1, double dato2, double dato3, int dato4) {
-	printf("[%.1f, %.1f] m:|%.1f| h:|%d| ", dato1, dato2, dato3, dato4);
+	printf(" [%.1f, %.1f] m:|%.1f| h:|%d| ", dato1, dato2, dato3, dato4);
 }
 
 int main() {
@@ -28,12 +28,12 @@ int main() {
 		else if (strcmp(com, "?") == 0) {
 			ITNodo *aux = itree_intersectar(&raiz, dato);
 			if (aux == NULL)
-				puts("No\n");
+				puts(" No");
 			else{
                 Intervalo I;
                 I.a = aux->interval.a;
                 I.b = aux->interval.b;
-				printf("Si, [%.1f,%.1f] \n", I.a, I.b);
+				printf(" Si, [%.1f,%.1f] \n", I.a, I.b);
 			}
 		}
 		else if (strcmp(com, "dfs") == 0) {
