@@ -91,7 +91,7 @@ void itree_eliminar(ITree *nodo, Intervalo dato) {
 		if ((*aux)->left == NULL && (*aux)->right == NULL) {
 			free((*aux));
 			(*aux) = NULL;
-			//return;
+			return;
 		}
 		else if ((*aux)->left == NULL) {
 			temp = (*aux);
