@@ -1,10 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 #include "avl.h"
-
-// Ver si se puede hacer esto.
-#define MAX(a,b) ((a) > (b) ? a : b)
-/* Determina si un elemento es mayor que otro o viceversa */
 
 int avl_altura(ITree nodo) {
 	if (nodo == NULL)
@@ -12,17 +9,17 @@ int avl_altura(ITree nodo) {
 	else
 		return nodo->altura;
 }
-// Funcion calcular altura que no devuelve nada, hace todo interno.
 
+// Funcion calcular altura que no devuelve nada, hace todo interno.
 void avl_actualizar_altura(ITree nodo) {
 	if (nodo != NULL)
-		nodo->altura = MAX(avl_altura(nodo->left), avl_altura(nodo->right)) + 1;
+		nodo->altura = fmax(avl_altura(nodo->left), avl_altura(nodo->right)) + 1;
 }
 // int avl_calcular_altura(ITree nodo) {
 // 	if (nodo == NULL)
 // 		return 0;
 // 	else
-// 		return MAX(avl_altura(nodo->left), avl_altura(nodo->right)) + 1;
+// 		return fmax(avl_altura(nodo->left), avl_altura(nodo->right)) + 1;
 // }
 
 // Igual que calcular altura, podemos hacerlo que haga todo interno en la funcion.
@@ -30,7 +27,7 @@ void avl_actualizar_max(ITree nodo) {
 	if (nodo != NULL){
 		if (nodo->left == NULL) {
 			if (nodo->right != NULL)
-				nodo->extra = MAX(nodo->right->extra,nodo->interval.b);
+				nodo->extra = fmax(nodo->right->extra,nodo->interval.b);
 			/* caso extremos izquierdos iguales, sin hijo izquierdo
 			 * con hijo derecho */
 			else
@@ -38,16 +35,16 @@ void avl_actualizar_max(ITree nodo) {
 			/* caso sin hijos */
 		}
 		else if (nodo->left != NULL && nodo->right == NULL)
-			nodo->extra = MAX(nodo->left->extra,nodo->interval.b);
+			nodo->extra = fmax(nodo->left->extra,nodo->interval.b);
 		/* caso solo hijo izquierdo */
 		else
-			nodo->extra = MAX(nodo->interval.b,MAX(nodo->left->extra,nodo->right->extra));
+			nodo->extra = fmax(nodo->interval.b,fmax(nodo->left->extra,nodo->right->extra));
 		}
 }
 // double avl_calcular_max(ITree nodo) {
 // 	if (nodo->left == NULL){
 // 		if (nodo->right != NULL)
-// 			return MAX(nodo->right->extra,nodo->extra);
+// 			return fmax(nodo->right->extra,nodo->extra);
 // 			/* caso extremos izquierdos iguales, sin hijo izquierdo
 // 			 * con hijo derecho */
 // 		else
@@ -55,10 +52,10 @@ void avl_actualizar_max(ITree nodo) {
 // 			/* caso sin hijos*/
 // 	}
 // 	else if (nodo->left != NULL && nodo->right == NULL)
-// 		return MAX(nodo->left->extra,nodo->extra);
+// 		return fmax(nodo->left->extra,nodo->extra);
 // 		/* caso solo hijo izquierdo */
 // 	else
-// 		return MAX(nodo->extra,MAX(nodo->left->extra,nodo->right->extra));
+// 		return fmax(nodo->extra,fmax(nodo->left->extra,nodo->right->extra));
 // 		/* caso con dos hijos */
 // }
 
