@@ -22,9 +22,9 @@ int main() {
 			//imprimir_intervalo(dato.a,dato.b, );
 			printf("\n");
 		}
-		//~ else if (strcmp(com, "e")) {
-			//~ itree_eliminar(&raiz, dato);
-		//~ }
+		else if (strcmp(com, "e") == 0) {
+			itree_eliminar(&raiz, dato);
+		}
 		//~ else if (strcmp(com, "?")) {
 			//~ Intervalo aux = itree_intersectar(&raiz, dato);
 			//~ if (aux == NULL)
