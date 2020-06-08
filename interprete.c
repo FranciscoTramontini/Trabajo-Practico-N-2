@@ -25,13 +25,17 @@ int main() {
 		else if (strcmp(com, "e") == 0) {
 			itree_eliminar(&raiz, dato);
 		}
-		//~ else if (strcmp(com, "?")) {
-			//~ Intervalo aux = itree_intersectar(&raiz, dato);
-			//~ if (aux == NULL)
-				//~ puts("No\n");
-			//~ else
-				//~ printf("Si, [%lf,%lf]", aux.a, aux.b);
-		//~ }
+		else if (strcmp(com, "?") == 0) {
+			ITNodo *aux = itree_intersectar(&raiz, dato);
+			if (aux == NULL)
+				puts("No\n");
+			else{
+                Intervalo I;
+                I.a = aux->interval.a;
+                I.b = aux->interval.b;
+				printf("Si, [%.1f,%.1f] \n", I.a, I.b);
+			}
+		}
 		else if (strcmp(com, "dfs") == 0) {
 			itree_recorrer_dfs(raiz, imprimir_intervalo);
 			puts("");
