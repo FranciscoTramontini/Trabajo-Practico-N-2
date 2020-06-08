@@ -77,7 +77,7 @@ void itree_eliminar(ITree *nodo, Intervalo dato) {
   if ((*aux) == NULL) //chequear arbol vacio
     return;
 
-  if (dato.a < (*aux)->interval.a))
+  if (dato.a < (*aux)->interval.a)
     itree_eliminar((*aux)->left, dato);
   else if (dato.a > (*aux)->interval.b)
     itree_eliminar((*aux)->right,dato);
@@ -113,7 +113,7 @@ void itree_eliminar(ITree *nodo, Intervalo dato) {
       }
     }
   }
-}
+
 
 
   avl_balancear(aux);
