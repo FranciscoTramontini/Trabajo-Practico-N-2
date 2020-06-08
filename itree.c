@@ -212,3 +212,105 @@ void itree_recorrer_bfs(ITree nodo, FuncionVisitante visit){
     //cola_destruir(cola);
     //itree_destruir(aux);
 }
+
+// int itree_altura(ITree nodo) {
+// 	if (nodo == NULL)
+// 		return 0;
+// 	else
+// 		return nodo->altura;
+// }
+//
+// void itree_actualizar_altura(ITree nodo) {
+// 	if (nodo != NULL)
+// 		nodo->altura = MAX(itree_altura(nodo->left), itree_altura(nodo->right)) + 1;
+// }
+//
+// void itree_actualizar_max(ITree nodo) {
+// 	if (nodo != NULL){
+// 		if (nodo->left == NULL) {
+// 			if (nodo->right != NULL)
+// 				nodo->extra = MAX(nodo->right->extra,nodo->interval.b);
+// 			/* caso extremos izquierdos iguales, sin hijo izquierdo
+// 			 * con hijo derecho */
+// 			else
+// 				nodo->extra = nodo->interval.b;
+// 			/* caso sin hijos */
+// 		}
+// 		else if (nodo->left != NULL && nodo->right == NULL)
+// 			nodo->extra = MAX(nodo->left->extra,nodo->interval.b);
+// 		/* caso solo hijo izquierdo */
+// 		else
+// 			nodo->extra = MAX(nodo->interval.b,MAX(nodo->left->extra,nodo->right->extra));
+// 		}
+// }
+//
+// int itree_balance_factor(ITree nodo) {
+// 	return itree_altura(nodo->right) - itree_altura(nodo->left);
+// }
+//
+// void itree_rotacion_simple_derecha(ITree *nodo) {
+// 	ITNodo *aux;
+//
+// 	aux = (*nodo)->right;
+// 	(*nodo)->right = aux->left;
+// 	aux->left = (*nodo);
+// 	/* rotacion */
+//
+// 	itree_actualizar_altura((*nodo));
+// 	itree_actualizar_altura(aux);
+// 	/* calculo de alturas para los nodos intercambiados */
+//
+// 	itree_actualizar_max((*nodo));
+// 	itree_actualizar_max(aux);
+// 	/* calculo del maximo valor del intervalo en los nodos cambiados */
+//
+// 	(*nodo) = aux;
+// }
+//
+// void itree_rotacion_simple_izquierda(ITree *nodo) {
+// 	ITNodo *aux;
+//
+// 	aux = (*nodo)->left;
+// 	(*nodo)->left = aux->right;
+// 	aux->right = (*nodo);
+// 	/* rotacion */
+//
+// 	itree_actualizar_altura((*nodo));
+// 	itree_actualizar_altura(aux);
+// 	/* calculo de alturas para los nodos intercambiados */
+//
+// 	itree_actualizar_max((*nodo));
+// 	itree_actualizar_max(aux);
+// 	/* calculo del maximo valor del intervalo en los nodos cambiados */
+//
+// 	(*nodo) = aux;
+// }
+//
+// void itree_rotacion_doble_izquierda(ITree *nodo) {
+// 	itree_rotacion_simple_derecha(&((*nodo)->left));
+// 	itree_rotacion_simple_izquierda(nodo);
+// }
+//
+// void itree_rotacion_doble_derecha(ITree *nodo) {
+// 	itree_rotacion_simple_izquierda(&((*nodo)->right));
+// 	itree_rotacion_simple_derecha(nodo);
+// }
+//
+// void itree_balancear(ITree *nodo) {
+// 	if ((*nodo) != NULL) {
+// 		switch (itree_balance_factor((*nodo))) {
+// 			case 2:
+// 			if (itree_altura((*nodo)->right->right) >= itree_altura((*nodo)->right->left))
+// 				itree_rotacion_simple_derecha(nodo);
+// 			else
+// 				itree_rotacion_doble_derecha(nodo);
+// 			break;
+// 			case -2:
+// 			if (itree_altura((*nodo)->left->left) >= itree_altura((*nodo)->left->right))
+// 				itree_rotacion_simple_izquierda(nodo);
+// 			else
+// 				itree_rotacion_doble_izquierda(nodo);
+// 			break;
+// 		}
+// 	}
+// }

@@ -72,4 +72,61 @@ void itree_recorrer_dfs(ITree nodo, FuncionVisitante visit);
     */
 void itree_recorrer_bfs(ITree nodo, FuncionVisitante visit);
 
+// /**
+// 	* avl_altura : ITree -> int
+//  	* Devuelve la altura del arbol pasado como argumento.
+//  	*/
+// int itree_altura(ITree nodo);
+//
+// /**
+// 	* avl_actualizar_altura : ITree -> void
+//  	* Calcula la altura de un nodo, altura = max(nodo->left,nodo->right)+1
+//  	*/
+// void itree_actualizar_altura(ITree nodo);
+//
+// /**
+// 	* itree_actualizar_max : ITree -> void
+//  	* Calcula el maximo local, comparando los maximos de los hijos y del arbol
+// 	* pasado como argumento.
+//  	*/
+// void itree_actualizar_max(ITree nodo);
+//
+// /**
+// 	* itree_balance_factor : ITree -> int
+//  	* Devuelve la diferencia de altura de sus dos arboles hijos.
+//  	*/
+// int itree_balance_factor(ITree nodo);
+//
+// /**
+// 	* itree_rotacion_simple_derecha : *ITree -> void
+//  	* Hace una rotacion simple a la derecha al arbol pasado como argumento.
+//  	*/
+// void itree_rotacion_simple_derecha(ITree *nodo);
+//
+// /**
+// 	* itree_rotacion_simple_izquierda : *ITree -> void
+//  	* Hace una rotacion simple a la izquierda al arbol pasado como argumento.
+//  	*/
+// void itree_rotacion_simple_izquierda(ITree *nodo);
+//
+// /**
+// 	* itree_rotacion_doble_derecha : *ITree -> void
+//  	* Hace una rotacion doble de la izquierda a la derecha del arbol pasado como
+// 	* argumento.
+//  	*/
+// void itree_rotacion_doble_derecha(ITree *nodo);
+//
+// /**
+// 	* itree_rotacion_doble_izquierda : *ITree -> void
+//  	* Hace una rotacion doble de la derecha a la izquierda del arbol pasado como
+// 	* argumento.
+//  	*/
+// void itree_rotacion_doble_izquierda(ITree *nodo);
+//
+// /**
+// 	* itree_balancear : *ITree -> Intervalo -> void
+//  	* Balanceamos en altura el arbol con el intervalo que pasamos como
+// 	* argumentos.
+//  */
+// void itree_balancear(ITree *nodo);
 #endif /* __ITREE_H__ */
