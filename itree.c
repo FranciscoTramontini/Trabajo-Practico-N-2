@@ -91,7 +91,7 @@ void itree_eliminar(ITree *nodo, Intervalo dato) {
         itree_destruir(*temp);
       }
     }
-    else if ((*aux)->left != NULL) { //caso tiene solo hijo derecho
+    else if ((*aux)->left != NULL) { //caso tiene solo hijo izquierdo
       (*temp) = (*aux)->left;
       (*aux) = (*aux)->left;
       itree_destruir(*temp);
@@ -99,12 +99,18 @@ void itree_eliminar(ITree *nodo, Intervalo dato) {
     else{                            //caso tiene dos hijos
       (*temp) = (*aux)->right;
 
-      while ((*temp)->left != NULL)
+      while ((*temp)->left != NULL) //buscar minimo del hijo derecho
         (*temp) = (*temp)->left;
 
-      (*aux) = (*temp);
-      itree_destruir(*temp);
-      // tomar minimo del (*aux)->right y swappea
+      if ((*temp)->right != NULL){ //caso minimo tiene hijo derecho
+        (*aux)->interval = (*temp)->interval;
+        (*temp)->interval = (*temp)->right->interval;
+        itree_destruir((*temp)->right);
+      }
+      else { //caso minimo no tiene hijos
+        (*aux)->interval = (*temp)->interval;
+        itree_destruir(*temp);
+      }
     }
   }
 }
@@ -117,7 +123,7 @@ void itree_eliminar(ITree *nodo, Intervalo dato) {
 
 // void itree_eliminar(ITree *nodo, Intervalo dato) {
 // 	ITNodo *temp;
-// 
+//
 // 	if (dato.a < (*nodo)->interval.a || (dato.a == (*nodo)->interval.a && dato.b < (*nodo)->interval.b))
 // 		itree_eliminar(&((*nodo)->left), dato);
 // 	else if (dato.a > (*nodo)->interval.a || (dato.a == (*nodo)->interval.a && dato.b > (*nodo)->interval.b))
