@@ -65,24 +65,24 @@ void itree_eliminar(ITree *nodo, Intervalo dato) {
 
 			(*aux)->interval = (*temp)->interval;
 			aux = temp;
-		/* con dos hijos */
+		/* caso dos hijos */
 		}
 		if ((*aux)->left == NULL && (*aux)->right == NULL) {
 			free((*aux));
 			(*aux) = NULL;
-		/* sin hijos */
+		/* caso sin hijos */
 		}
 		else if ((*aux)->left == NULL) {
 			temp = (*aux);
 			(*aux) = (*aux)->right;
 			free(temp);
-		/* hijo derecho */
+		/* caso solo hijo derecho */
 		}
 		else {
 			temp = (*aux);
 			(*aux) = (*aux)->left;
 			free(temp);
-		/* hijo izquierdo */
+		/* caso solo hijo izquierdo */
 		}
 	}
     itree_actualizar_max((*nodo));
@@ -215,7 +215,6 @@ void itree_rotacion_doble_derecha(ITree *nodo) {
 	itree_rotacion_simple_derecha(nodo);
 }
 
-// Ver si swicth es buena opcion o buscar otra.
 void itree_balancear(ITree *nodo) {
 	if ((*nodo) != NULL) {
 		switch (itree_balance_factor((*nodo))) {

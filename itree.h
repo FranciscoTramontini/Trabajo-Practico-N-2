@@ -2,7 +2,7 @@
 #define __ITREE_H__
 
 typedef void (*FuncionVisitante) (double dato1, double dato2);
-/* función puntero. */
+/* función puntero */
 
 typedef struct _Intervalo {
     double a, b;

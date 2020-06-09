@@ -19,17 +19,18 @@ int main() {
 
 	while (strcmp(com, "salir") != 0) {
         fgets(palabra, sizeof(palabra), stdin);
- 		/* lee la palabra ingresada*/
+ 		/* lee la palabra ingresada */
+
         size_t len = strlen(palabra);
-        if (len && (palabra[len-1] == '\n')) { //reemplaza \n con \0
+        if (len && (palabra[len-1] == '\n')) {
             palabra[len-1] = '\0';
-		/* Remplazamos '\n'por un '\0' para crear un string*/
+		/* Remplazamos '\n' por un '\0' para crear un string */
         }
-        sscanf(palabra, "%s %[^\n]s" ,com ,interv);
+        sscanf(palabra, "%s %[^\n]s", com, interv);
  		/* separa la palabra en identificador e intervalo */
 
 		if (strcmp(com, "i") == 0) {
-			if((sscanf(interv,"[%lf,%lf]", &dato.a, &dato.b)) == 2 &&
+			if ((sscanf(interv, "[%lf,%lf]", &dato.a, &dato.b)) == 2 &&
 														dato.a <= dato.b) {
 			/* separa el intervalo y verifica que sea correcto */
                 itree_insertar(&raiz, dato);
@@ -37,7 +38,7 @@ int main() {
                 puts("intervalo invalido");
 		}
 		else if (strcmp(com, "e") == 0) {
-			if((sscanf(interv,"[%lf,%lf]", &dato.a, &dato.b)) == 2 &&
+			if ((sscanf(interv, "[%lf,%lf]", &dato.a, &dato.b)) == 2 &&
 														dato.a <= dato.b) {
 			/* separa el intervalo y verifica que sea correcto */
                 itree_eliminar(&raiz, dato);
@@ -51,14 +52,13 @@ int main() {
                 ITNodo *aux = itree_intersectar(&raiz, dato);
                 if (aux == NULL)
                     puts(" No");
-                else{
+                else {
                     Intervalo I;
                     I.a = aux->interval.a;
                     I.b = aux->interval.b;
                     printf(" Si, [%.2f,%.2f] \n", I.a, I.b);
                 }
-            }
-            else
+            } else
                 puts("intervalo invalido");
         }
 		else if (strcmp(com, "dfs") == 0) {
