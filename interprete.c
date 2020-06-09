@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "itree.h"
 
@@ -35,12 +36,15 @@ int main() {
 
 	while (strcmp(com, "salir") != 0) {
 		if (strcmp(com, "i") == 0) {
+			sscanf(interv,"[%lf,%lf]" ,&dato.a ,&dato.b);
 			itree_insertar(&raiz, dato);
 		}
 		else if (strcmp(com, "e") == 0) {
+			sscanf(interv,"[%lf,%lf]" ,&dato.a ,&dato.b);
 			itree_eliminar(&raiz, dato);
 		}
 		else if (strcmp(com, "?") == 0) {
+			sscanf(interv,"[%lf,%lf]" ,&dato.a ,&dato.b);
 			ITNodo *aux = itree_intersectar(&raiz, dato);
 			if (aux == NULL)
 				puts(" No");
@@ -50,8 +54,6 @@ int main() {
                 I.b = aux->interval.b;
 				printf(" Si, [%.2f,%.2f] \n", I.a, I.b);
 			}
-			// Creo que falta esto
-			// itree_destruir(aux);
 		}
 		else if (strcmp(com, "dfs") == 0) {
 			itree_recorrer_dfs(raiz, imprimir_intervalo);
@@ -71,7 +73,7 @@ int main() {
         }
         sscanf(palabra, "%s %[^\n]s" ,com ,interv);
  		/* separa la palabra en identificador e intervalo */
-		sscanf(interv,"[%lf,%lf]" ,&dato.a ,&dato.b);
+		// sscanf(interv,"[%lf,%lf]" ,&dato.a ,&dato.b);
 		/* separa el intervalo */
 	}
 	itree_destruir(raiz);
