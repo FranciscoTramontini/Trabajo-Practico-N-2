@@ -92,9 +92,6 @@ void itree_eliminar(ITree *nodo, Intervalo dato) {
 ITNodo* itree_intersectar(ITree *nodo, Intervalo dato) {
 	ITNodo **aux = nodo;
 
-	if (nodo == NULL)
-		return NULL; // Capaz esto lo podemos obviar, ya que si nodo es null no
-                        // entra en el while, hay que verlo.
 	while ((*aux) != NULL) {
 		if (dato.b >= (*aux)->interval.a && dato.a <= (*aux)->interval.b)
 			return *aux;
@@ -127,8 +124,9 @@ void itree_recorrer_bfs(ITree nodo, FuncionVisitante visit){
             cola_encolar(cola, aux->right);
         aux = cola_desencolar(cola);
     }
-    //cola_destruir(cola);
-    //itree_destruir(aux);
+    //ver si esta bien, compile y anda.
+    cola_destruir(cola);
+    itree_destruir(aux);
 }
 
 int itree_altura(ITree nodo) {
@@ -217,6 +215,7 @@ void itree_rotacion_doble_derecha(ITree *nodo) {
 	itree_rotacion_simple_derecha(nodo);
 }
 
+// Ver si swicth es buena opcion o buscar otra.
 void itree_balancear(ITree *nodo) {
 	if ((*nodo) != NULL) {
 		switch (itree_balance_factor((*nodo))) {

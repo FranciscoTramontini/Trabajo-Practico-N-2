@@ -1,9 +1,10 @@
 #include "cola.h"
-#include <stdio.h>
 #include <stdlib.h>
+#include <assert.h>
 
 Cola cola_crear() {
 	Cola nuevaCola = malloc(sizeof(struct _Cola));
+	assert(nuevaCola);
   	nuevaCola->primero = NULL;
   	nuevaCola->ultimo = NULL;
   	return nuevaCola;
@@ -11,6 +12,7 @@ Cola cola_crear() {
 
 void cola_encolar(Cola cola, ITree dato) {
 	SNodo *nuevoNodo = malloc(sizeof(SNodo));
+	assert(nuevoNodo);
 	nuevoNodo->dato = dato;
 	nuevoNodo->sig = NULL;
 
