@@ -3,24 +3,19 @@
 #include "itree.h"
 
 static void imprimir_intervalo (double dato1, double dato2, double dato3, int dato4) {
-	printf(" [%.1f, %.1f] m:|%.1f| h:|%d| ", dato1, dato2, dato3, dato4);
+	printf(" [%.2f, %.2f] m:|%.2f| h:|%d| ", dato1, dato2, dato3, dato4);
 }
 
 int main() {
-
 	ITree raiz = itree_crear();
 	Intervalo dato;
-	char palabra[100];
-	char com[100];
-	char interv[100];
-	//double a,b;
+	char palabra[100] = {};
+	char com[100] = {};
+	char interv[100] = {};
 
 	while (strcmp(com, "salir") != 0) {
 		if (strcmp(com, "i") == 0) {
 			itree_insertar(&raiz, dato);
-			//printf("se inserto ");
-			//imprimir_intervalo(dato.a,dato.b, );
-			//printf("\n");
 		}
 		else if (strcmp(com, "e") == 0) {
 			itree_eliminar(&raiz, dato);
@@ -33,7 +28,7 @@ int main() {
                 Intervalo I;
                 I.a = aux->interval.a;
                 I.b = aux->interval.b;
-				printf(" Si, [%.1f,%.1f] \n", I.a, I.b);
+				printf(" Si, [%.2f,%.2f] \n", I.a, I.b);
 			}
 		}
 		else if (strcmp(com, "dfs") == 0) {
@@ -44,21 +39,18 @@ int main() {
 			itree_recorrer_bfs(raiz, imprimir_intervalo);
 			puts("");
 		}
-		//scanf("%s[^\n]s\n", palabra);
-
 		//lei que gets no es muy recomendable utilizarlo.
-        fgets(palabra, sizeof(palabra), stdin);  //leer string entero
+        fgets(palabra, sizeof(palabra), stdin);
+ 		/* lee la palabra ingresada*/
         size_t len = strlen(palabra);
         if (len && (palabra[len-1] == '\n')) { //reemplaza \n con \0
             palabra[len-1] = '\0';
+		/* Remplazamos '\n'por un '\0' para crear un string*/
         }
-        //printf ("palabra: %s\n" ,palabra); //test si llego hasta aca
-        sscanf(palabra, "%s %[^\n]s" ,com ,interv); //separa com e intervalo
-        //printf("com: %s interv: %s\n" ,com ,interv); //test si llego hasta aca
-		sscanf(interv,"[%lf,%lf]" ,&dato.a ,&dato.b); //separa doubles del intervalo
-		//printf("a: %f b: %f \n",a,b); //test si llego hasta aca
-		//sscanf(a, "%lf", &dato.a);
-		//sscanf(b, "%lf", &dato.b);
+        sscanf(palabra, "%s %[^\n]s" ,com ,interv);
+ 		/* separa la palabra en identificador e intervalo */
+		sscanf(interv,"[%lf,%lf]" ,&dato.a ,&dato.b);
+		/* separa el intervalo */
 	}
 	itree_destruir(raiz);
 	return 0;

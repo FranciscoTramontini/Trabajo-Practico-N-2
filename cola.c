@@ -13,6 +13,7 @@ void cola_encolar(Cola cola, ITree dato) {
 	SNodo *nuevoNodo = malloc(sizeof(SNodo));
 	nuevoNodo->dato = dato;
 	nuevoNodo->sig = NULL;
+
 	if(cola->primero == NULL){
 		cola->primero = nuevoNodo;
 		cola->ultimo = nuevoNodo;
@@ -29,13 +30,15 @@ void cola_encolar(Cola cola, ITree dato) {
 
 ITree cola_desencolar(Cola cola){
 	if (cola->primero == NULL) return NULL;
+
 	SNodo* aux = cola->primero;
 	cola->primero = aux->sig;
 	return aux->dato;
 }
-
-void slist_destruir(Cola cola) {
+//Ver si la usamos.
+void cola_destruir(Cola cola) {
 	SNodo *nodoAEliminar;
+
 	while (cola->primero != NULL) {
 		nodoAEliminar = cola->primero;
 		cola->primero = cola->primero->sig;
