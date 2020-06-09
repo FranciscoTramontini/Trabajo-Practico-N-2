@@ -3,7 +3,6 @@
 
 #include "itree.h"
 
-//Esto es una estrucutura de una lista enlazada. verificar si esta bien esto.
 typedef struct _SNodo {
   ITree dato;
   struct _SNodo *sig;
@@ -22,7 +21,11 @@ typedef struct _Cola {
     */
 Cola cola_crear();
 
-ITree cola_primero(Cola cola);
+/**
+    * cola_destruir : Cola -> void
+    * Libera la memoria pedida de la cola pasada por argumento.
+    */
+void cola_destruir(Cola cola);
 
 /**
     * cola_encolar : Cola -> ITree -> void
@@ -37,10 +40,4 @@ void cola_encolar(Cola cola, ITree dato);
     */
 ITree cola_desencolar(Cola cola);
 
-/**
-    * cola_destruir : Cola -> void
-    * Libera la memoria pedida de la cola pasada por argumento.
-    */
-void cola_destruir(Cola cola);
-
-#endif
+#endif /* __COLA_H__ */

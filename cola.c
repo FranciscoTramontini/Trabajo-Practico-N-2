@@ -10,8 +10,15 @@ Cola cola_crear() {
   	return nuevaCola;
 }
 
-ITree cola_primero(Cola cola) {
-	return cola->primero->dato;
+void cola_destruir(Cola cola) {
+	SNodo *nodoAEliminar;
+
+	while (cola->primero != NULL) {
+		nodoAEliminar = cola->primero;
+		cola->primero = cola->primero->sig;
+		free(nodoAEliminar);
+	}
+	free(cola);
 }
 
 void cola_encolar(Cola cola, ITree dato) {
@@ -37,20 +44,9 @@ void cola_encolar(Cola cola, ITree dato) {
 ITree cola_desencolar(Cola cola){
 	if (cola->primero == NULL) return NULL;
 
-	SNodo* aux = cola->primero;
+	SNodo *aux = cola->primero;
 	cola->primero = aux->sig;
 	ITree temp = aux->dato;
 	free(aux);
 	return temp;
-}
-
-void cola_destruir(Cola cola) {
-	SNodo *nodoAEliminar;
-
-	while (cola->primero != NULL) {
-		nodoAEliminar = cola->primero;
-		cola->primero = cola->primero->sig;
-		free(nodoAEliminar);
-	}
-	free(cola);
 }
