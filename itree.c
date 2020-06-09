@@ -36,6 +36,7 @@ void itree_insertar(ITree *nodo, Intervalo dato) {
             return;
 		else
 			itree_insertar(&((*aux)->right), dato);
+
 		itree_balancear(aux);
 		itree_actualizar_altura((*aux));
         itree_actualizar_max((*aux));
@@ -124,7 +125,6 @@ void itree_recorrer_bfs(ITree nodo, FuncionVisitante visit){
             cola_encolar(cola, aux->right);
         aux = cola_desencolar(cola);
     }
-    //ver si esta bien, compile y anda.
     cola_destruir(cola);
     itree_destruir(aux);
 }
