@@ -9,6 +9,26 @@ static void imprimir_intervalo (double dato1, double dato2, double dato3, int da
 int main() {
 	ITree raiz = itree_crear();
 	Intervalo dato;
+	// for (int i = 1; i < 20; i++) {
+	// 	Intervalo test;
+	// 	test.a = i;
+	// 	test.b = i+1;
+	// 	itree_insertar(&raiz, test);
+	// }
+	// Intervalo dato;
+	// dato.a = 5;
+	// dato.b = 6;
+	// itree_eliminar(&raiz, dato);
+	//
+	// Intervalo dato2;
+	// dato2.a = 1;
+	// dato2.b = 2;
+	// itree_eliminar(&raiz, dato2);
+	//
+	// itree_recorrer_bfs(raiz, imprimir_intervalo);
+	// itree_recorrer_dfs(raiz, imprimir_intervalo);
+
+
 	char palabra[100] = {};
 	char com[100] = {};
 	char interv[100] = {};
@@ -30,6 +50,8 @@ int main() {
                 I.b = aux->interval.b;
 				printf(" Si, [%.2f,%.2f] \n", I.a, I.b);
 			}
+			// Creo que falta esto
+			// itree_destruir(aux);
 		}
 		else if (strcmp(com, "dfs") == 0) {
 			itree_recorrer_dfs(raiz, imprimir_intervalo);

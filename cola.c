@@ -10,6 +10,10 @@ Cola cola_crear() {
   	return nuevaCola;
 }
 
+ITree cola_primero(Cola cola) {
+	return cola->primero->dato;
+}
+
 void cola_encolar(Cola cola, ITree dato) {
 	SNodo *nuevoNodo = malloc(sizeof(SNodo));
 	assert(nuevoNodo);
@@ -35,9 +39,11 @@ ITree cola_desencolar(Cola cola){
 
 	SNodo* aux = cola->primero;
 	cola->primero = aux->sig;
-	return aux->dato;
+	ITree temp = aux->dato;
+	free(aux);
+	return temp;
 }
-//Ver si la usamos.
+
 void cola_destruir(Cola cola) {
 	SNodo *nodoAEliminar;
 
@@ -46,4 +52,5 @@ void cola_destruir(Cola cola) {
 		cola->primero = cola->primero->sig;
 		free(nodoAEliminar);
 	}
+	free(cola);
 }

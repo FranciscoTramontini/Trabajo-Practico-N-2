@@ -22,6 +22,8 @@ typedef struct _Cola {
     */
 Cola cola_crear();
 
+ITree cola_primero(Cola cola);
+
 /**
     * cola_encolar : Cola -> ITree -> void
     * Agrega un arbol de intervalos al final de la cola pasada como argumento.
