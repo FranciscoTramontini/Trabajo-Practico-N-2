@@ -107,7 +107,7 @@ ITNodo* itree_intersectar(ITree *nodo, Intervalo dato) {
 void itree_recorrer_dfs(ITree nodo, FuncionVisitante visit) {
     if (nodo != NULL) {
         itree_recorrer_dfs(nodo->left, visit);
-        visit(nodo->interval.a, nodo->interval.b, nodo->extra, nodo->altura);
+        visit(nodo->interval.a, nodo->interval.b);
         itree_recorrer_dfs(nodo->right, visit);
     /* recorrido inorden */
     }
@@ -118,7 +118,7 @@ void itree_recorrer_bfs(ITree nodo, FuncionVisitante visit){
     ITree aux = nodo;
 
     while (aux != NULL) {
-        visit(aux->interval.a, aux->interval.b, aux->extra, aux->altura);
+        visit(aux->interval.a, aux->interval.b);
         if (aux->left != NULL)
             cola_encolar(cola, aux->left);
         if (aux->right != NULL)

@@ -6,8 +6,8 @@
 	* imprimir_intervalo : double -> double -> void
 	* Imprime un intervalo de la forma [double, double].
 	*/
-static void imprimir_intervalo (double dato1, double dato2, double dato3, int dato4) {
-	printf(" [%.2f, %.2f] m:|%.2f| h:|%d| ", dato1, dato2, dato3, dato4);
+static void imprimir_intervalo (double dato1, double dato2) {
+	printf(" [%.2f, %.2f]", dato1, dato2);
 }
 
 int main() {
@@ -18,8 +18,6 @@ int main() {
 	char interv[100] = {};
 
 	while (strcmp(com, "salir") != 0) {
-
-		//lei que gets no es muy recomendable utilizarlo.
         fgets(palabra, sizeof(palabra), stdin);
  		/* lee la palabra ingresada*/
         size_t len = strlen(palabra);
@@ -29,8 +27,6 @@ int main() {
         }
         sscanf(palabra, "%s %[^\n]s" ,com ,interv);
  		/* separa la palabra en identificador e intervalo */
-		// sscanf(interv,"[%lf,%lf]" ,&dato.a ,&dato.b);
-		/* separa el intervalo */
 
 		if (strcmp(com, "i") == 0) {
 			if((sscanf(interv,"[%lf,%lf]", &dato.a, &dato.b)) == 2 &&
@@ -74,8 +70,8 @@ int main() {
 			puts("");
 		}
 		else
-			puts("comando invalido");
-
+			if (strcmp(com, "salir") != 0)
+				puts("comando invalido");
 	}
 	itree_destruir(raiz);
 	return 0;
