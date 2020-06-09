@@ -3,10 +3,15 @@
 #include <string.h>
 #include "itree.h"
 
+/**
+	* imprimir_intervalo : double -> double -> void
+	* Imprime un intervalo de la forma [double, double].
+	*/
 static void imprimir_intervalo (double dato1, double dato2, double dato3, int dato4) {
 	printf(" [%.2f, %.2f] m:|%.2f| h:|%d| ", dato1, dato2, dato3, dato4);
 }
 
+// Falta verificar que a <= b
 int main() {
 	ITree raiz = itree_crear();
 	Intervalo dato;
