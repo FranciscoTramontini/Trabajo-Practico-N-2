@@ -18,6 +18,20 @@ int main() {
 	char interv[100] = {};
 
 	while (strcmp(com, "salir") != 0) {
+
+		//lei que gets no es muy recomendable utilizarlo.
+        fgets(palabra, sizeof(palabra), stdin);
+ 		/* lee la palabra ingresada*/
+        size_t len = strlen(palabra);
+        if (len && (palabra[len-1] == '\n')) { //reemplaza \n con \0
+            palabra[len-1] = '\0';
+		/* Remplazamos '\n'por un '\0' para crear un string*/
+        }
+        sscanf(palabra, "%s %[^\n]s" ,com ,interv);
+ 		/* separa la palabra en identificador e intervalo */
+		// sscanf(interv,"[%lf,%lf]" ,&dato.a ,&dato.b);
+		/* separa el intervalo */
+
 		if (strcmp(com, "i") == 0) {
 			if((sscanf(interv,"[%lf,%lf]", &dato.a, &dato.b)) == 2 &&
 														dato.a <= dato.b) {
@@ -59,17 +73,9 @@ int main() {
 			itree_recorrer_bfs(raiz, imprimir_intervalo);
 			puts("");
 		}
+		else
+			puts("comando invalido");
 
-        fgets(palabra, sizeof(palabra), stdin);
- 		/* lee la palabra ingresada */
-
-        size_t len = strlen(palabra);
-        if (len && (palabra[len-1] == '\n')) {
-            palabra[len-1] = '\0';
-		/* Remplazamos '\n'por un '\0' para crear un string */
-        }
-        sscanf(palabra, "%s %[^\n]s" ,com ,interv);
- 		/* separa la palabra en identificador e intervalo */
 	}
 	itree_destruir(raiz);
 	return 0;
