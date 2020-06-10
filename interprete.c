@@ -7,7 +7,7 @@
 	* Imprime un intervalo de la forma [double, double].
 	*/
 static void imprimir_intervalo (double dato1, double dato2) {
-	printf(" [%.2f, %.2f]", dato1, dato2);
+	printf(" [%.2lf, %.2lf]", dato1, dato2);
 }
 
 int main() {
