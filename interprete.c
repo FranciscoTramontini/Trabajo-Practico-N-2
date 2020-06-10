@@ -5,23 +5,33 @@
 
 /**
 	* imprimir_intervalo : double -> double -> void
-	* Imprime un intervalo de la forma [double, double].
+	* Imprime un intervalo de la forma [double,double].
 	*/
 static void imprimir_intervalo (double dato1, double dato2) {
-	printf(" [%.2lf, %.2lf]", dato1, dato2);
+	printf(" [%.2lf,%.2lf]", dato1, dato2);
 }
 
+/**
+	* es_intervalo : char* -> int
+	* Dado un string que representara la forma de un intervalo [a,b] definira si
+	* el string pasado es un intervalo o no, devolvera 1 si lo es o 0 en caso
+	* contrario.
+	*/
 int es_intervalo(char *str) {
 	int i = strlen(str) - 1;
-	if (str[i] != ']' || (! isdigit(str[1]) && str[1] != '-'))
+	int control = 0;
+	if (str[i] != ']' || (!isdigit(str[1]) && str[1] != '-'))
 		return 0;
 	i--;
 	while (str[i] != ',') {
-		if (! isdigit(str[i])) {
-			return 0;
-		}
+		if (str[i] == '.')
+			control++;
+		else if (str[i] == '-' && str[i-1] == ',')
+			break;
+		else if (! isdigit(str[i]))	return 0;
 		i--;
 	}
+	if (control > 1) return 0;
 	return 1;
 }
 
@@ -39,7 +49,7 @@ int main() {
         size_t len = strlen(palabra);
         if (len && (palabra[len-1] == '\n')) {
             palabra[len-1] = '\0';
-		/* Remplazamos '\n' por un '\0' para crear un string */
+		/* Remplazamos '\n' por un '\0' para crear el string */
         }
         sscanf(palabra, "%s %[^\n]s", com, interv);
  		/* separa la palabra en identificador e intervalo */

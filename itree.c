@@ -109,7 +109,7 @@ void itree_recorrer_dfs(ITree nodo, FuncionVisitante visit) {
         itree_recorrer_dfs(nodo->left, visit);
         visit(nodo->interval.a, nodo->interval.b);
         itree_recorrer_dfs(nodo->right, visit);
-    /* recorrido inorden */
+    /* recorrido in orden */
     }
 }
 
