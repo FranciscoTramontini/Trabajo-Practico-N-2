@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 #include "itree.h"
 
 /**
@@ -8,6 +9,20 @@
 	*/
 static void imprimir_intervalo (double dato1, double dato2) {
 	printf(" [%.2lf, %.2lf]", dato1, dato2);
+}
+
+int es_intervalo(char *str) {
+	int i = strlen(str) - 1;
+	if (str[i] != ']' || (! isdigit(str[1]) && str[1] != '-'))
+		return 0;
+	i--;
+	while (str[i] != ',') {
+		if (! isdigit(str[i])) {
+			return 0;
+		}
+		i--;
+	}
+	return 1;
 }
 
 int main() {
@@ -31,7 +46,7 @@ int main() {
 
 		if (strcmp(com, "i") == 0) {
 			if ((sscanf(interv, "[%lf,%lf]", &dato.a, &dato.b)) == 2 &&
-														dato.a <= dato.b) {
+									dato.a <= dato.b && es_intervalo(interv)) {
 			/* separa el intervalo y verifica que sea correcto */
                 itree_insertar(&raiz, dato);
 			} else
@@ -39,7 +54,7 @@ int main() {
 		}
 		else if (strcmp(com, "e") == 0) {
 			if ((sscanf(interv, "[%lf,%lf]", &dato.a, &dato.b)) == 2 &&
-														dato.a <= dato.b) {
+									dato.a <= dato.b && es_intervalo(interv)) {
 			/* separa el intervalo y verifica que sea correcto */
                 itree_eliminar(&raiz, dato);
 			} else
@@ -47,7 +62,7 @@ int main() {
 		}
 		else if (strcmp(com, "?") == 0) {
 			if ((sscanf(interv,"[%lf,%lf]", &dato.a, &dato.b)) == 2 &&
-														dato.a <= dato.b) {
+									dato.a <= dato.b && es_intervalo(interv)) {
 				/* separa el intervalo y verifica que sea correcto */
                 ITNodo *aux = itree_intersectar(&raiz, dato);
                 if (aux == NULL)
